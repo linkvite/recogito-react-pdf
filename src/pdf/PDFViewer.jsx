@@ -1,90 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import * as PDFJS from 'pdfjs-dist/legacy/build/pdf';
-import Connections from '@recogito/recogito-connections';
-
 import EndlessViewer from './endless/EndlessViewer';
 import PaginatedViewer from './paginated/PaginatedViewer';
-import Store from './AnnotationStore';
+import { annotationStore } from './AnnotationStore';
 
 import 'pdfjs-dist/web/pdf_viewer.css';
-import '@recogito/recogito-js/dist/recogito.min.css';
-import '@recogito/annotorious/dist/annotorious.min.css';
 import './PDFViewer.css';
 
-const store = new Store();
-
 const PDFViewer = props => {
+    const [pdf, setPdf] = useState();
+    const linkvite = props?.linkvite ?? {
+        autoHighlight: {
+            enabled: false,
+            color: 'lv-highlighter-4',
+            delay: 200,
+        },
+        sendMessage: (msg) => console.info("[Message]: ", JSON.stringify(msg, null, 2)),
+    };
 
-  const [ pdf, setPdf ] = useState();
+    useEffect(() => {
+        PDFJS
+            .getDocument(props.url)
+            .promise
+            .then(
+                pdf => setPdf(pdf),
+                error => console.error(error)
+            );
+    }, [props.url]);
 
-  const [ connections, setConnections ] = useState();
+    const onCreateAnnotation = a => {
+        annotationStore.create(a);
+        props.onCreateAnnotation && props.onCreateAnnotation(a);
+    }
 
-  // Load PDF on mount
-  useEffect(() => {
-    // Init after DOM load
-    const conn = new Connections([], { 
-      showLabels: true,
-      vocabulary: props.config.relationVocabulary
-    });
+    const onUpdateAnnotation = (a, p) => {
+        annotationStore.update(a, p);
+        props.onUpdateAnnotation && props.onUpdateAnnotation(a, p);
+    }
 
-    setConnections(conn);
+    const onDeleteAnnotation = a => {
+        annotationStore.delete(a);
+        props.onDeleteAnnotation && props.onDeleteAnnotation(a);
+    }
 
-    PDFJS.getDocument(props.url).promise
-      .then(
-        pdf => setPdf(pdf), 
-        error => console.error(error)
-      );
+    const onCancelSelected = a => {
+        props.onCancelSelected && props.onCancelSelected(a);
+    }
 
-    // Destroy connections layer on unmount
-    return () => conn.destroy();
-  }, []);
+    return pdf ?
+        props.mode === 'scrolling' ?
+            <EndlessViewer
+                {...props}
+                pdf={pdf}
+                linkvite={linkvite}
+                onCreateAnnotation={onCreateAnnotation}
+                onUpdateAnnotation={onUpdateAnnotation}
+                onDeleteAnnotation={onDeleteAnnotation}
+                onCancelSelected={onCancelSelected} /> :
 
-  useEffect(() => {
-    store.setAnnotations(props.annotations || []);
-  }, [ props.annotations ])
+            <PaginatedViewer
+                {...props}
+                pdf={pdf}
+                linkvite={linkvite}
+                onCreateAnnotation={onCreateAnnotation}
+                onUpdateAnnotation={onUpdateAnnotation}
+                onDeleteAnnotation={onDeleteAnnotation}
+                onCancelSelected={onCancelSelected} />
 
-  const onCreateAnnotation = a => {
-    store.createAnnotation(a);
-    props.onCreateAnnotation && props.onCreateAnnotation(a);
-  }
-
-  const onUpdateAnnotation = (a, p) => {
-    store.updateAnnotation(a, p);
-    props.onUpdateAnnotation && props.onUpdateAnnotation(a, p);
-  }
-    
-  const onDeleteAnnotation = a => {
-    store.deleteAnnotation(a);
-    props.onDeleteAnnotation && props.onDeleteAnnotation(a);
-  }
-
-  const onCancelSelected = a => {
-    props.onCancelSelected && props.onCancelSelected(a);
-  }
-
-  return pdf ? 
-    props.mode === 'scrolling' ? 
-      <EndlessViewer
-        {...props}
-        pdf={pdf}
-        store={store}
-        connections={connections}
-        onCreateAnnotation={onCreateAnnotation}
-        onUpdateAnnotation={onUpdateAnnotation}
-        onDeleteAnnotation={onDeleteAnnotation} 
-        onCancelSelected={onCancelSelected} /> :
-      
-      <PaginatedViewer 
-        {...props}
-        pdf={pdf}
-        store={store}
-        connections={connections}
-        onCreateAnnotation={onCreateAnnotation}
-        onUpdateAnnotation={onUpdateAnnotation}
-        onDeleteAnnotation={onDeleteAnnotation} 
-        onCancelSelected={onCancelSelected} />
-    
-    : null;
+        : null;
 
 }
 

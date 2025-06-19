@@ -1,54 +1,38 @@
-/** A minimal local annotation store **/
-export default class AnnotationStore {
+import { proxy, snapshot } from 'valtio';
+export const annotationStore = proxy({
+    annotations: [],
+    set: (annotations) => {
+        annotationStore.annotations = annotations;
+    },
+    create: (annotation) => {
+        annotationStore.annotations.push(annotation);
+    },
+    update: (updated, previous) => {
+        annotationStore.annotations = annotationStore.annotations.map(a =>
+            a.id === previous.id ? updated : a);
+    },
+    delete: (annotation) => {
+        const idx = annotationStore.annotations.findIndex(a => a.id === annotation.id);
+        if (idx >= 0) {
+            annotationStore.annotations.splice(idx, 1);
+        }
+    },
+    get: () => {
+        const { annotations } = snapshot(annotationStore);
+        return annotations;
+    },
+    getAll: (pageNumber) => {
+        const isOnPage = annotation => {
+            if (annotation.target.selector) {
+                const selectors = Array.isArray(annotation.target.selector) ?
+                    annotation.target.selector : [annotation.target.selector];
 
-  constructor() {
-    this._annotations = [];
-  }
+                const selectorWithPage = selectors.find(s => s.page);
+                return selectorWithPage?.page == pageNumber;
+            }
+        };
 
-  setAnnotations(annotations) {
-    this._annotations = annotations;
-  }
-
-  createAnnotation(annotation) {
-    this._annotations.push(annotation);
-  }
-
-  updateAnnotation(updated, previous) {
-    this._annotations = this._annotations.map(a => 
-      a.id === previous.id ? updated : a);
-  }
-
-  deleteAnnotation(annotation) {
-    this._annotations = this._annotations.filter(a => 
-      a.id !== annotation.id);
-  }
-
-  getAnnotations(pageNumber) {
-    // Text annotations on this page
-    const isOnPage = annotation => {
-      if (annotation.target.selector) {
-        const selectors = Array.isArray(annotation.target.selector) ? 
-          annotation.target.selector : [ annotation.target.selector ];
-
-        const selectorWithPage = selectors.find(s => s.page); 
-        return selectorWithPage?.page == pageNumber;
-      }
-    };
-
-    const annotationsOnPage = this._annotations.filter(isOnPage);
-
-    // Relations linked to the given annotations
-    const ids = new Set(annotationsOnPage.map(a => a.id));
-    const linkedRelations = this._annotations
-      .filter(a => !a.target.selector) // all relations
-      .filter(a => {
-        const from = a.target[0].id;
-        const to = a.target[1].id;
-
-        return ids.has(from) || ids.has(to);
-      });
-
-    return [...annotationsOnPage, ...linkedRelations ];
-  }
-
-}
+        const { annotations } = snapshot(annotationStore);
+        return annotations.filter(isOnPage);
+    }
+});

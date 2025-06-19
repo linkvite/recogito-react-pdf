@@ -2,9 +2,97 @@
 <html>
   <head>
     <title>Recogito-PDF | Example</title>
+    <link rel="stylesheet"
+        href="https://s3.us-west-1.wasabisys.com/assets.linkvite.io/public/recogito/recogito.12.min.css" />
+    <script
+        src="https://s3.us-west-1.wasabisys.com/assets.linkvite.io/public/recogito/recogito.12.min.js"></script>
   </head>
 
   <body>
     <div id="app"></div>
+
+    <script type="text/javascript">
+        var r;
+        (function () {
+            const RECOGITO_CONFIG = {
+                url: "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+                mode: "paginated",
+                linkvite: {
+                    autoHighlight: {
+                        enabled: false,
+                        color: 'lv-highlighter-4',
+                        delay: 200,
+                    },
+                    sendMessage: function (type, message) {
+                        console.log(
+                            'Linkvite message received:',
+                            { type, message }
+                        )
+                    }
+                },
+                handleAnnotationCreated: function (annotation) {
+                    console.log('Annotation created:', JSON.stringify(annotation, null, 2));
+                },
+                handleAnnotationUpdated: function (annotation, previous) {
+                    console.log('Annotation updated:', annotation, 'previous:', previous);
+                },
+                handleAnnotationDeleted: function (annotation) {
+                    console.log('Annotation deleted:', annotation);
+                },
+            };
+
+            r = RecogitoPDF.init(RECOGITO_CONFIG);
+
+            r.loadAnnotations('sample-annotations.json')
+                .then(() => console.log('loaded'))
+                .catch(err => console.error('Error loading annotations:', err));
+
+            setTimeout(() => {
+                const annotations = r.getAnnotations();
+                console.log('Current annotations after 10 seconds:', annotations.length);
+                const firstAnnotation = annotations[0];
+                if (firstAnnotation) {
+                    console.log('Removing first annotation:', JSON.stringify(firstAnnotation, null, 2));
+                    r.removeAnnotation(firstAnnotation)
+                } else {
+                    console.log('No annotations to remove');
+                }
+
+                const updatedAnnotations = r.getAnnotations();
+                console.log('Annotations after removal:', updatedAnnotations.length);
+            }, 5000);
+
+            setTimeout(() => {
+                const newItem = {
+                    "@context": "http://www.w3.org/ns/anno.jsonld",
+                    "type": "Annotation",
+                    "body": [
+                        {
+                            "type": "TextualBody",
+                            "purpose": "highlighting",
+                            "value": "lv-highlighter-3"
+                        }
+                    ],
+                    "target": {
+                        "selector": [
+                            {
+                                "type": "TextQuoteSelector",
+                                "exact": "Vestibulum  lacinia  arcu  eget  nulla.  Class  aptent  taciti  sociosqu  ad  litora  torquent  per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero."
+                            },
+                            {
+                                "type": "TextPositionSelector",
+                                "start": 664,
+                                "end": 839
+                            }
+                        ]
+                    },
+                    "id": "#f14fdb38-c4d3-47df-ad2c-cda8fe2b5551"
+                }
+
+                console.log('Adding new annotation:', JSON.stringify(newItem, null, 2));
+                r.addAnnotation(newItem)
+            }, 10000);
+        })();
+    </script>
   </body>
 </html>

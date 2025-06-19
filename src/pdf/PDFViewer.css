@@ -1,119 +1,232 @@
-html, body {
-  padding:0;
-  margin:0;
+html,
+body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden !important;
 }
 
 #app main {
-  background-color:#cbcbcb;
-  padding:110px 0 40px 0;
+    background-color: transparent;
 }
 
-header {
-  position:fixed;
-  width:100%;
-  padding:20px;
-  box-shadow:0 1px 10px rgba(0, 0, 0, 0.3);
-  background-color:#fff;
-  z-index:3;
-}
-
-header button {
-  background:none;
-  border:none;
-  outline:none;
-  font-size:24px;
-  cursor:pointer;
-  padding:3px;
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  display:inline-block;
-  margin-right:10px;
-}
-
-header button span {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-header button:hover {
-  background:rgba(0, 0, 0, 0.08);
-}
-
-header button.active {
-  background-color:orange;
-  color:#fff;
-}
-
-header label {
-  vertical-align:super;
-  font-size:18px;
-  padding:4px 10px;
-  margin:0 8px;
-  background-color:rgba(0, 0, 0, 0.08);
-  border-radius:3px;
-  font-family: Arial, Helvetica, sans-serif;
+main {
+    background-color: var(--background);
+    color: var(--text);
+    height: 100dvh;
 }
 
 .pdf-viewer-container {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--background);
+    overflow-x: hidden !important;
 }
 
 .page-container {
-  position:relative;
-  margin:10px 0;
-  min-height:50vh;
+    position: relative;
+    margin: 10px 0;
+    min-height: 50vh;
 }
 
 .page-container .r6o-content-wrapper {
-  position:absolute !important;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .page-container .textLayer {
-  opacity:1;
-  z-index:1;
-}
-
-.page-container .a9s-annotationlayer {
-  z-index:2;
-  pointer-events:none;
-}
-
-.page-container .r6o-annotation,
-.page-container .a9s-annotation {
-  pointer-events:auto;
-}
-
-.page-container.debug .textLayer span {
-  color:red;
+    opacity: 1;
+    z-index: 1;
 }
 
 .page-container .textLayer br {
-  display:none;
+    display: none;
 }
 
 .page-container .textLayer span.r6o-annotation,
 .page-container .textLayer span.r6o-selection {
-  position:relative;
-  cursor:pointer;
+    position: relative;
+    cursor: pointer;
 }
 
-.page-container canvas {
-  box-shadow:1px 1px 10px rgba(0, 0, 0, 0.1);
+span {
+    overflow-x: unset !important;
 }
 
-.r6o-connections-canvas {
-  z-index:3;
+/* PDF Navigation Bar */
+.pdf-nav-bar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--background) !important;
+    padding: 12px 8px;
+    border-radius: 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+    opacity: 1;
+    z-index: 1000;
+    overflow: hidden;
 }
 
-.r6o-connections-editor {
-  z-index:4;
+/* Hide on scroll up */
+.pdf-nav-bar.hidden {
+    transform: translateY(calc(100% + 20px));
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Navigation buttons */
+.pdf-nav-bar button {
+    background: none;
+    border: none;
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text);
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.pdf-nav-bar button:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+.pdf-nav-bar button:active {
+    transform: scale(0.95);
+}
+
+.pdf-nav-bar button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.pdf-nav-bar button:disabled:hover {
+    background: none;
+    transform: none;
+}
+
+/* Button inner content */
+.pdf-nav-bar button .inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease;
+}
+
+.pdf-nav-bar button:hover .inner {
+    transform: scale(1.1);
+}
+
+/* Page label */
+.pdf-nav-bar label {
+    color:  var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 8px;
+    min-width: 44px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Hover effect for the entire bar */
+.pdf-nav-bar:hover {
+    background: rgba(0, 0, 0, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .pdf-nav-bar {
+        bottom: 16px;
+        right: 16px;
+        padding: 10px 6px;
+    }
+
+    .pdf-nav-bar button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .pdf-nav-bar label {
+        font-size: 12px;
+        min-width: 40px;
+    }
+}
+
+/* Animation for showing/hiding */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.pdf-nav-bar.show {
+    animation: slideInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.pdf-nav-bar.hide {
+    animation: slideOutDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Subtle glow effect */
+.pdf-nav-bar::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0.1) 100%);
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pdf-nav-bar:hover::before {
+    opacity: 1;
 }

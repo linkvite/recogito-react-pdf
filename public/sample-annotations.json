@@ -1,80 +1,314 @@
 [
-  {
-    "type": "Annotation",
-    "body": [
-      {
-        "type": "TextualBody",
-        "value": "Test #1",
-        "purpose": "commenting"
-      }
-    ],
-    "target": {
-      "selector": [
-        {
-          "type": "TextQuoteSelector",
-          "exact": "Type Specialization"
+    {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        "type": "Annotation",
+        "body": [
+            {
+                "type": "TextualBody",
+                "purpose": "highlighting",
+                "value": "lv-highlighter-3"
+            }
+        ],
+        "target": {
+            "source": "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+            "selector": [
+                {
+                    "type": "TextQuoteSelector",
+                    "exact": "Is it the same as saying “three long minutes”"
+                },
+                {
+                    "type": "TextPositionSelector",
+                    "start": 137,
+                    "end": 182,
+                    "page": 1
+                }
+            ]
         },
-        {
-          "type": "TextPositionSelector",
-          "start": 25,
-          "end": 44,
-          "page": 1
+        "id": "f3bd505a-cf66-4f18-a3b8-9a5cf01a2a90",
+        "underlying": {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "body": [
+                {
+                    "type": "TextualBody",
+                    "purpose": "highlighting",
+                    "value": "lv-highlighter-3"
+                }
+            ],
+            "target": {
+                "selector": [
+                    {
+                        "type": "TextQuoteSelector",
+                        "exact": "Is it the same as saying “three long minutes”"
+                    },
+                    {
+                        "type": "TextPositionSelector",
+                        "start": 137,
+                        "end": 182
+                    }
+                ]
+            },
+            "id": "#f3bd505a-cf66-4f18-a3b8-9a5cf01a2a90"
         }
-      ]
     },
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "id": "#b5639d48-6b1d-4341-8211-a97dcb278865"
-  },
-  {
-    "type": "Annotation",
-    "body": [
-      {
-        "type": "TextualBody",
-        "value": "Test #2",
-        "purpose": "commenting"
-      }
-    ],
-    "target": {
-      "selector": [
-        {
-          "type": "TextQuoteSelector",
-          "exact": "Abstract"
+    {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        "type": "Annotation",
+        "body": [
+            {
+                "type": "TextualBody",
+                "purpose": "highlighting",
+                "value": "lv-highlighter-4"
+            }
+        ],
+        "target": {
+            "source": "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+            "selector": [
+                {
+                    "type": "TextQuoteSelector",
+                    "exact": "Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices."
+                },
+                {
+                    "type": "TextPositionSelector",
+                    "start": 1236,
+                    "end": 1624,
+                    "page": 1
+                }
+            ]
         },
-        {
-          "type": "TextPositionSelector",
-          "start": 598,
-          "end": 606,
-          "page": 1
+        "id": "b5fc2a30-bf92-4d45-bf40-2e7a31fe9be8",
+        "underlying": {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "body": [
+                {
+                    "type": "TextualBody",
+                    "purpose": "highlighting",
+                    "value": "lv-highlighter-4"
+                }
+            ],
+            "target": {
+                "selector": [
+                    {
+                        "type": "TextQuoteSelector",
+                        "exact": "Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices."
+                    },
+                    {
+                        "type": "TextPositionSelector",
+                        "start": 1236,
+                        "end": 1624
+                    }
+                ]
+            },
+            "id": "#b5fc2a30-bf92-4d45-bf40-2e7a31fe9be8"
         }
-      ]
     },
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "id": "#6dc3dc53-056c-4178-9954-3e6deb6b4675"
-  },
-  {
-    "type": "Annotation",
-    "body": [
-      {
-        "type": "TextualBody",
-        "value": "Test #3",
-        "purpose": "commenting"
-      }
-    ],
-    "target": {
-      "selector": [
-        {
-          "type": "TextQuoteSelector",
-          "exact": "Figure 1. Sample program:"
+    {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        "type": "Annotation",
+        "body": [
+            {
+                "type": "TextualBody",
+                "purpose": "highlighting",
+                "value": "lv-highlighter-3"
+            }
+        ],
+        "target": {
+            "source": "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+            "selector": [
+                {
+                    "type": "TextQuoteSelector",
+                    "exact": ". Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent  taciti  sociosqu  ad  litora  torquent  per  conubia  nostra,  per  inceptos  himenaeos.  Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem.   Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel,  tincidunt  sed,  euismod  in,  nibh.  Quisque  volutpat  condimentum  velit.  Class  aptent  taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti."
+                },
+                {
+                    "type": "TextPositionSelector",
+                    "start": 265,
+                    "end": 1158,
+                    "page": 2
+                }
+            ]
         },
-        {
-          "type": "TextPositionSelector",
-          "start": 4012,
-          "end": 4037,
-          "page": 2
+        "id": "b29ccd8c-dd74-46b8-9487-8d41bf97ecb4",
+        "underlying": {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "body": [
+                {
+                    "type": "TextualBody",
+                    "purpose": "highlighting",
+                    "value": "lv-highlighter-3"
+                }
+            ],
+            "target": {
+                "selector": [
+                    {
+                        "type": "TextQuoteSelector",
+                        "exact": ". Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent  taciti  sociosqu  ad  litora  torquent  per  conubia  nostra,  per  inceptos  himenaeos.  Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem.   Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel,  tincidunt  sed,  euismod  in,  nibh.  Quisque  volutpat  condimentum  velit.  Class  aptent  taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti."
+                    },
+                    {
+                        "type": "TextPositionSelector",
+                        "start": 265,
+                        "end": 1158
+                    }
+                ]
+            },
+            "id": "#b29ccd8c-dd74-46b8-9487-8d41bf97ecb4"
         }
-      ]
     },
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "id": "#068333e8-2616-4a90-883d-27c8595a806a"
-  }
+    {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        "type": "Annotation",
+        "body": [
+            {
+                "type": "TextualBody",
+                "purpose": "highlighting",
+                "value": "lv-highlighter-1"
+            }
+        ],
+        "target": {
+            "source": "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+            "selector": [
+                {
+                    "type": "TextQuoteSelector",
+                    "exact": "orttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel,  tincidunt  sed,  euismod  in,  nibh.  Quisque  volutpat  condimentum  velit.  Class  aptent  taciti sociosqu ad litora torquent per conubia nostra, per i"
+                },
+                {
+                    "type": "TextPositionSelector",
+                    "start": 646,
+                    "end": 972,
+                    "page": 2
+                }
+            ]
+        },
+        "id": "03d42c6f-8202-4e59-9cb0-a0e6ffa37834",
+        "underlying": {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "body": [
+                {
+                    "type": "TextualBody",
+                    "purpose": "highlighting",
+                    "value": "lv-highlighter-1"
+                }
+            ],
+            "target": {
+                "selector": [
+                    {
+                        "type": "TextQuoteSelector",
+                        "exact": "orttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel,  tincidunt  sed,  euismod  in,  nibh.  Quisque  volutpat  condimentum  velit.  Class  aptent  taciti sociosqu ad litora torquent per conubia nostra, per i"
+                    },
+                    {
+                        "type": "TextPositionSelector",
+                        "start": 646,
+                        "end": 972
+                    }
+                ]
+            },
+            "id": "#03d42c6f-8202-4e59-9cb0-a0e6ffa37834"
+        }
+    },
+    {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        "type": "Annotation",
+        "body": [
+            {
+                "type": "TextualBody",
+                "purpose": "highlighting",
+                "value": "lv-highlighter-5"
+            }
+        ],
+        "target": {
+            "source": "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+            "selector": [
+                {
+                    "type": "TextQuoteSelector",
+                    "exact": "Lorem ipsum dolor sit a"
+                },
+                {
+                    "type": "TextPositionSelector",
+                    "start": 394,
+                    "end": 417,
+                    "page": 1
+                }
+            ]
+        },
+        "id": "a5d2b03b-fac4-4938-af33-3857acadf611",
+        "underlying": {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "body": [
+                {
+                    "type": "TextualBody",
+                    "purpose": "highlighting",
+                    "value": "lv-highlighter-5"
+                }
+            ],
+            "target": {
+                "selector": [
+                    {
+                        "type": "TextQuoteSelector",
+                        "exact": "Lorem ipsum dolor sit a"
+                    },
+                    {
+                        "type": "TextPositionSelector",
+                        "start": 394,
+                        "end": 417
+                    }
+                ]
+            },
+            "id": "#a5d2b03b-fac4-4938-af33-3857acadf611"
+        }
+    },
+    {
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        "type": "Annotation",
+        "body": [
+            {
+                "type": "TextualBody",
+                "purpose": "highlighting",
+                "value": "lv-highlighter-2"
+            }
+        ],
+        "target": {
+            "source": "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
+            "selector": [
+                {
+                    "type": "TextQuoteSelector",
+                    "exact": "Proin ut ligula vel nunc egestas porttitor"
+                },
+                {
+                    "type": "TextPositionSelector",
+                    "start": 995,
+                    "end": 1037,
+                    "page": 1
+                }
+            ]
+        },
+        "id": "22c4ec5b-0ecc-4424-a58f-968052cf9dd7",
+        "underlying": {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "body": [
+                {
+                    "type": "TextualBody",
+                    "purpose": "highlighting",
+                    "value": "lv-highlighter-2"
+                }
+            ],
+            "target": {
+                "selector": [
+                    {
+                        "type": "TextQuoteSelector",
+                        "exact": "Proin ut ligula vel nunc egestas porttitor"
+                    },
+                    {
+                        "type": "TextPositionSelector",
+                        "start": 995,
+                        "end": 1037
+                    }
+                ]
+            },
+            "id": "#22c4ec5b-0ecc-4424-a58f-968052cf9dd7"
+        }
+    }
 ]

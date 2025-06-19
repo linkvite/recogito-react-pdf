@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { CgDebug, CgChevronLeft, CgChevronRight, CgArrowsExpandDownRight } from 'react-icons/cg';
-import { RiImageEditFill } from 'react-icons/ri';
+import PDFNavigationBar from './Nav';
 
 import AnnotatablePage from './AnnotatablePage';
 import { extendTarget } from '../PDFAnnotation';
+import { annotationStore } from '../AnnotationStore';
 
 const PaginatedViewer = props => {
-
   const [ page, setPage ] = useState();
 
-  const [ debug, setDebug ] = useState(false);
-
-  const [ annotationMode, setAnnotationMode ] = useState('ANNOTATION');
-
-  // Render first page on mount
   useEffect(() => {
     props.pdf.getPage(1).then(setPage);
   }, []);
@@ -31,20 +25,6 @@ const PaginatedViewer = props => {
     const nextNum = Math.min(pageNumber + 1, numPages);
     if (nextNum !== pageNumber)
       props.pdf.getPage(nextNum).then(page => setPage(page));
-  }
-
-  const onToggleRelationsMode = () => {
-    if (annotationMode === 'RELATIONS')
-      setAnnotationMode('ANNOTATION');
-    else
-      setAnnotationMode('RELATIONS'); 
-  }
-
-  const onToggleImageMode = () => {
-    if (annotationMode === 'IMAGE')
-      setAnnotationMode('ANNOTATION');
-    else
-      setAnnotationMode('IMAGE');
   }
 
   const onCreateAnnotation = a => {
@@ -65,58 +45,26 @@ const PaginatedViewer = props => {
   
   return (
     <div>
-      <header>
-        <button onClick={() => setDebug(!debug)}>
-          <span className="inner">
-            <CgDebug />
-          </span>
-        </button>
-
-        <button onClick={onPreviousPage}>
-          <span className="inner">
-            <CgChevronLeft />
-          </span>
-        </button>
-
-        <label>{page?.pageNumber} / {props.pdf.numPages}</label>
-        
-        <button onClick={onNextPage}>
-          <span className="inner">
-            <CgChevronRight />
-          </span>
-        </button>
-
-        <button 
-          className={annotationMode === 'RELATIONS' ? 'active' : null} 
-          onClick={onToggleRelationsMode}>
-          <span className="inner">
-            <CgArrowsExpandDownRight />
-          </span>
-        </button>
-
-        <button
-          className={annotationMode === 'IMAGE' ? 'active' : null} 
-          onClick={onToggleImageMode}>
-          <span className="inner">
-            <RiImageEditFill />
-          </span>
-        </button>
-      </header>
-
       <main>
         <div className="pdf-viewer-container">
           <AnnotatablePage 
             page={page} 
-            annotations={page ? props.store.getAnnotations(page.pageNumber) : []}
+            annotations={page ? annotationStore.getAll(page.pageNumber) : []}
             config={props.config}
-            debug={debug} 
-            annotationMode={annotationMode} 
+            linkvite={props.linkvite}
             onCreateAnnotation={onCreateAnnotation}
             onUpdateAnnotation={onUpdateAnnotation}
             onDeleteAnnotation={onDeleteAnnotation} 
             onCancelSelected={props.onCancelSelected} />
         </div>
       </main>
+
+      <PDFNavigationBar
+        page={page}
+        pdf={props.pdf}
+        onPreviousPage={onPreviousPage}
+        onNextPage={onNextPage}
+      />
     </div>
   )
 
