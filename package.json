@@ -36,15 +36,16 @@
     "html-webpack-plugin": "^4.5.2",
     "sass": "^1.35.2",
     "sass-loader": "^10.2.0",
-    "style-loader": "^2.0.0"
+    "style-loader": "^2.0.0",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.3.1"
   },
   "dependencies": {
     "pdfjs-dist": "2.9.359",
     "preact": "^10.5.13",
     "react-icons": "^4.2.0",
     "valtio": "^2.1.5",
-    "webpack": "^5.58.1",
-    "webpack-cli": "^4.9.0",
-    "webpack-dev-server": "^4.3.1"
+    "tiny-emitter": "^2.1.0"
   }
 }

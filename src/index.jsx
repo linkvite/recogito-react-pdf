@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Emitter from 'tiny-emitter';
 import PDFViewer from './pdf/PDFViewer';
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = 'https://s3.us-west-1.wasabisys.com/assets.linkvite.io/public/recogito/pdf.worker.js';
 
-import {annotationStore} from './pdf/AnnotationStore';
-import {getGlobalRecogito} from './globalRecogito';
+import { annotationStore } from './pdf/AnnotationStore';
+import { getGlobalRecogito } from './globalRecogito';
 
 export class RecogitoPDF {
     constructor(config) {
         this.config = config;
         this.containerEl = null;
-        this.appInstance = null;
+        this._emitter = new Emitter();
 
         this._init();
     }
@@ -35,34 +36,32 @@ export class RecogitoPDF {
                 url={this.config.url}
                 linkvite={this.config.linkvite}
                 mode={this.config.mode || 'scrolling'}
-                onCreateAnnotation={this._handleAnnotationCreated.bind(this)}
-                onUpdateAnnotation={this._handleAnnotationUpdated.bind(this)}
-                onDeleteAnnotation={this._handleAnnotationDeleted.bind(this)}
+                onCreateAnnotation={this.handleAnnotationCreated}
+                onUpdateAnnotation={this.handleAnnotationUpdated}
+                onDeleteAnnotation={this.handleAnnotationDeleted}
             />,
             this.containerEl
         );
     }
 
-    _handleAnnotationCreated(annotation, overrideId) {
-        if (this.config.handleAnnotationCreated) {
-            this.config.handleAnnotationCreated(annotation.underlying || annotation, overrideId);
-        }
-    }
+    handleAnnotationCreated = (annotation, overrideId) =>
+        this._emitter.emit('pdf:create:annotation', annotation.underlying, overrideId);
 
-    _handleAnnotationUpdated(annotation, previous) {
-        if (this.config.handleAnnotationUpdated) {
-            this.config.handleAnnotationUpdated(
-                annotation.underlying || annotation,
-                previous.underlying || previous
-            );
-        }
-    }
+    handleAnnotationUpdated = (annotation, previous) =>
+        this._emitter.emit('pdf:update:annotation', annotation.underlying, previous.underlying);
 
-    _handleAnnotationDeleted(annotation) {
-        if (this.config.handleAnnotationDeleted) {
-            this.config.handleAnnotationDeleted(annotation.underlying || annotation);
-        }
-    }
+    handleAnnotationDeleted = annotation =>
+        this._emitter.emit('pdf:delete:annotation', annotation.underlying);
+
+    /******************/
+    /*  External API  */
+    /******************/
+
+    off = (event, callback) =>
+        this._emitter.off(event, callback);
+
+    on = (event, handler) =>
+        this._emitter.on(event, handler);
 
     setAnnotations(annotations) {
         annotationStore.set(annotations);
@@ -70,7 +69,7 @@ export class RecogitoPDF {
         if (globalRecogito) {
             globalRecogito.setAnnotations(annotations);
         }
-        return  annotations;
+        return annotations;
     }
 
     async loadAnnotations(url) {
@@ -118,8 +117,6 @@ export class RecogitoPDF {
             }
             this.containerEl = null;
         }
-
-        this.appInstance = null;
     }
 }
 

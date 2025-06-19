@@ -29,16 +29,7 @@
                             { type, message }
                         )
                     }
-                },
-                handleAnnotationCreated: function (annotation) {
-                    console.log('Annotation created:', JSON.stringify(annotation, null, 2));
-                },
-                handleAnnotationUpdated: function (annotation, previous) {
-                    console.log('Annotation updated:', annotation, 'previous:', previous);
-                },
-                handleAnnotationDeleted: function (annotation) {
-                    console.log('Annotation deleted:', annotation);
-                },
+                }
             };
 
             r = RecogitoPDF.init(RECOGITO_CONFIG);
@@ -46,6 +37,18 @@
             r.loadAnnotations('sample-annotations.json')
                 .then(() => console.log('loaded'))
                 .catch(err => console.error('Error loading annotations:', err));
+
+            r.on('pdf:create:annotation', function (a) {
+                console.log('Annotation created:', JSON.stringify(a, null, 2));
+            });
+
+            r.on('pdf:update:annotation', function (annotation, previous) {
+                console.log('updated', previous, 'with', annotation);
+            });
+
+            r.on('pdf:delete:annotation', function (annotation) {
+                console.log('deleted', annotation);
+            });
 
             setTimeout(() => {
                 const annotations = r.getAnnotations();
