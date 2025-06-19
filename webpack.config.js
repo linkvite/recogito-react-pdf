@@ -16,7 +16,7 @@ const version = packageData.linkviteVersion;
 module.exports = {
     entry: resolveAppPath('src'),
     output: {
-        filename: `recogito-pdf.${version}.bundle.js`,
+        filename: `recogito-pdf.${version}.min.js`,
         library: 'RecogitoPDF',
         libraryTarget: 'umd',
         umdNamedDefine: true,
